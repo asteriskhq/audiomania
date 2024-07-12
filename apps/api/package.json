@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "gen": "graphql-codegen",
-    "dev": "tsx --watch src/server",
+    "dev": "tsx --watch --env-file .env src/server",
     "check-types": "tsc --noEmit"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "dependencies": {
     "drizzle-orm": "^0.31.4",
     "graphql": "^16.9.0",
+    "graphql-scalars": "^1.23.0",
     "graphql-yoga": "^5.6.0",
     "pg": "^8.12.0"
   },

@@ -1,5 +1,19 @@
+scalar DateTime
+
 type Query {
+  track(id: ID!): Track
+  tracks: [Track!]!
   user(id: ID!): User
+}
+
+type Track {
+  artist: String!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  source: String!
+  title: String!
+  updatedAt: DateTime!
 }
 
 type User {

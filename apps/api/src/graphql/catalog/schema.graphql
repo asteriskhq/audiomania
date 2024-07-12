@@ -1,0 +1,13 @@
+extend type Query {
+  tracks: [Track!]!
+  track(id: ID!): Track
+}
+type Track {
+  id: ID!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  artist: String!
+  source: String!
+}
