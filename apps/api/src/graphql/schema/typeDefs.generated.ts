@@ -8,6 +8,13 @@ export const typeDefs = {
       fields: [
         {
           kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'me' },
+          arguments: [],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'tracks' },
           arguments: [],
           type: {
@@ -33,23 +40,94 @@ export const typeDefs = {
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Track' } },
           directives: [],
         },
+      ],
+      directives: [],
+      interfaces: [],
+    },
+    {
+      name: { kind: 'Name', value: 'Mutation' },
+      kind: 'ObjectTypeDefinition',
+      fields: [
         {
           kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'user' },
+          name: { kind: 'Name', value: 'signIn' },
           arguments: [
             {
               kind: 'InputValueDefinition',
-              name: { kind: 'Name', value: 'id' },
-              type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+              name: { kind: 'Name', value: 'credentials' },
+              type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'SignInInput' } } },
               directives: [],
             },
           ],
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SignInPayload' } },
           directives: [],
         },
       ],
       directives: [],
       interfaces: [],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'User' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'id' },
+          arguments: [],
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'name' },
+          arguments: [],
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'email' },
+          arguments: [],
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'InputObjectTypeDefinition',
+      name: { kind: 'Name', value: 'SignInInput' },
+      directives: [],
+      fields: [
+        {
+          kind: 'InputValueDefinition',
+          name: { kind: 'Name', value: 'email' },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+          directives: [],
+        },
+        {
+          kind: 'InputValueDefinition',
+          name: { kind: 'Name', value: 'password' },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'SignInPayload' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'user' },
+          arguments: [],
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'User' } } },
+          directives: [],
+        },
+      ],
     },
     { kind: 'ScalarTypeDefinition', name: { kind: 'Name', value: 'DateTime' }, directives: [] },
     {
@@ -110,41 +188,17 @@ export const typeDefs = {
       ],
     },
     {
-      kind: 'ObjectTypeDefinition',
-      name: { kind: 'Name', value: 'User' },
-      interfaces: [],
-      directives: [],
-      fields: [
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'id' },
-          arguments: [],
-          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
-          directives: [],
-        },
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'fullName' },
-          arguments: [],
-          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
-          directives: [],
-        },
-        {
-          kind: 'FieldDefinition',
-          name: { kind: 'Name', value: 'isAdmin' },
-          arguments: [],
-          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } } },
-          directives: [],
-        },
-      ],
-    },
-    {
       kind: 'SchemaDefinition',
       operationTypes: [
         {
           kind: 'OperationTypeDefinition',
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Query' } },
           operation: 'query',
+        },
+        {
+          kind: 'OperationTypeDefinition',
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Mutation' } },
+          operation: 'mutation',
         },
       ],
     },

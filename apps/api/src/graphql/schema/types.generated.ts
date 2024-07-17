@@ -17,19 +17,34 @@ export type Scalars = {
   DateTime: { input: Date | string; output: Date | string };
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  signIn?: Maybe<SignInPayload>;
+};
+
+export type MutationsignInArgs = {
+  credentials: SignInInput;
+};
+
 export type Query = {
   __typename?: 'Query';
+  me?: Maybe<User>;
   track?: Maybe<Track>;
   tracks: Array<Track>;
-  user?: Maybe<User>;
 };
 
 export type QuerytrackArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type QueryuserArgs = {
-  id: Scalars['ID']['input'];
+export type SignInInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export type SignInPayload = {
+  __typename?: 'SignInPayload';
+  user: User;
 };
 
 export type Track = {
@@ -45,9 +60,9 @@ export type Track = {
 
 export type User = {
   __typename?: 'User';
-  fullName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  isAdmin: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -123,10 +138,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
-  Track: ResolverTypeWrapper<Track>;
+  SignInInput: SignInInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  SignInPayload: ResolverTypeWrapper<SignInPayload>;
+  Track: ResolverTypeWrapper<Track>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
@@ -134,10 +152,13 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output'];
+  Mutation: {};
   Query: {};
   ID: Scalars['ID']['output'];
-  Track: Track;
+  SignInInput: SignInInput;
   String: Scalars['String']['output'];
+  SignInPayload: SignInPayload;
+  Track: Track;
   User: User;
   Boolean: Scalars['Boolean']['output'];
 };
@@ -146,13 +167,33 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'DateTime';
 }
 
+export type MutationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
+> = {
+  signIn?: Resolver<
+    Maybe<ResolversTypes['SignInPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationsignInArgs, 'credentials'>
+  >;
+};
+
 export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   track?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType, RequireFields<QuerytrackArgs, 'id'>>;
   tracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryuserArgs, 'id'>>;
+};
+
+export type SignInPayloadResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SignInPayload'] = ResolversParentTypes['SignInPayload'],
+> = {
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TrackResolvers<
@@ -173,15 +214,17 @@ export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User'],
 > = {
-  fullName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  isAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  SignInPayload?: SignInPayloadResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

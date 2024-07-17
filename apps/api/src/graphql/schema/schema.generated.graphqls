@@ -1,9 +1,22 @@
 scalar DateTime
 
+type Mutation {
+  signIn(credentials: SignInInput!): SignInPayload
+}
+
 type Query {
+  me: User
   track(id: ID!): Track
   tracks: [Track!]!
-  user(id: ID!): User
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+type SignInPayload {
+  user: User!
 }
 
 type Track {
@@ -17,7 +30,7 @@ type Track {
 }
 
 type User {
-  fullName: String!
+  email: String!
   id: ID!
-  isAdmin: Boolean!
+  name: String!
 }
