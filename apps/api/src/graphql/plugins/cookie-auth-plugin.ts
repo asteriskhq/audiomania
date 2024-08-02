@@ -1,5 +1,6 @@
-import { createGraphQLError, Plugin } from 'graphql-yoga';
+import { Plugin } from 'graphql-yoga';
 import { getSessionById } from '../../auth/facade.js';
+import { unauthorized } from '../utils/utils.js';
 
 const tmp = new WeakMap();
 
@@ -19,12 +20,7 @@ export function useCookieAuth(): Plugin {
 
       const validSession = await getSessionById(session.value);
       if (!validSession) {
-        throw createGraphQLError('Unauthenticated', {
-          extensions: {
-            code: 'UNAUTHENTICATED',
-            http: { status: 401 },
-          },
-        });
+        throw unauthorized();
       }
 
       tmp.set(request, validSession.user);

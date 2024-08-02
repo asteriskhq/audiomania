@@ -62,6 +62,20 @@ export const typeDefs = {
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'SignInPayload' } },
           directives: [],
         },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'upload' },
+          arguments: [
+            {
+              kind: 'InputValueDefinition',
+              name: { kind: 'Name', value: 'file' },
+              type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'File' } } },
+              directives: [],
+            },
+          ],
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          directives: [],
+        },
       ],
       directives: [],
       interfaces: [],
@@ -130,6 +144,7 @@ export const typeDefs = {
       ],
     },
     { kind: 'ScalarTypeDefinition', name: { kind: 'Name', value: 'DateTime' }, directives: [] },
+    { kind: 'ScalarTypeDefinition', name: { kind: 'Name', value: 'File' }, directives: [] },
     {
       kind: 'ObjectTypeDefinition',
       name: { kind: 'Name', value: 'Track' },

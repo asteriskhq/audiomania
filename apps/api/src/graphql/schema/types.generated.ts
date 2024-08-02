@@ -15,15 +15,21 @@ export type Scalars = {
   Int: { input: number; output: number };
   Float: { input: number; output: number };
   DateTime: { input: Date | string; output: Date | string };
+  File: { input: File; output: File };
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   signIn?: Maybe<SignInPayload>;
+  upload?: Maybe<Scalars['String']['output']>;
 };
 
 export type MutationsignInArgs = {
   credentials: SignInInput;
+};
+
+export type MutationuploadArgs = {
+  file: Scalars['File']['input'];
 };
 
 export type Query = {
@@ -138,11 +144,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  File: ResolverTypeWrapper<Scalars['File']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   SignInInput: SignInInput;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
   SignInPayload: ResolverTypeWrapper<SignInPayload>;
   Track: ResolverTypeWrapper<Track>;
   User: ResolverTypeWrapper<User>;
@@ -152,11 +159,12 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output'];
+  File: Scalars['File']['output'];
   Mutation: {};
+  String: Scalars['String']['output'];
   Query: {};
   ID: Scalars['ID']['output'];
   SignInInput: SignInInput;
-  String: Scalars['String']['output'];
   SignInPayload: SignInPayload;
   Track: Track;
   User: User;
@@ -165,6 +173,10 @@ export type ResolversParentTypes = {
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
+}
+
+export interface FileScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['File'], any> {
+  name: 'File';
 }
 
 export type MutationResolvers<
@@ -176,6 +188,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationsignInArgs, 'credentials'>
+  >;
+  upload?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationuploadArgs, 'file'>
   >;
 };
 
@@ -222,6 +240,7 @@ export type UserResolvers<
 
 export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType;
+  File?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   SignInPayload?: SignInPayloadResolvers<ContextType>;

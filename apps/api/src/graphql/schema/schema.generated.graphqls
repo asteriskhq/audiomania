@@ -1,7 +1,10 @@
 scalar DateTime
 
+scalar File
+
 type Mutation {
   signIn(credentials: SignInInput!): SignInPayload
+  upload(file: File!): String
 }
 
 type Query {

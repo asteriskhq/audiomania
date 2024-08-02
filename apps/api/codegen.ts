@@ -6,6 +6,19 @@ const config: CodegenConfig = {
   generates: {
     'src/graphql/schema': defineConfig({
       emitLegacyCommonJSImports: false,
+      scalarsOverrides: {
+        File: { type: 'File' },
+      },
+      resolverGeneration: {
+        query: '*',
+        mutation: '*',
+        subscription: '*',
+        scalar: '!*.File',
+        object: '*',
+        union: '',
+        interface: '',
+        enum: '',
+      },
     }),
   },
   hooks: {
