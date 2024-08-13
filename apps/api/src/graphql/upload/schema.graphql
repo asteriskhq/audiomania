@@ -1,3 +1,9 @@
+type UploadResult {
+  id: ID!
+  url: String!
+}
+
 extend type Mutation {
-  upload(file: File!): String
+  upload(file: File!): UploadResult
+  # publish():
 }

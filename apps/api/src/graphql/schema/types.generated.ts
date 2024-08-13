@@ -21,7 +21,7 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   signIn?: Maybe<SignInPayload>;
-  upload?: Maybe<Scalars['String']['output']>;
+  upload?: Maybe<UploadResult>;
 };
 
 export type MutationsignInArgs = {
@@ -62,6 +62,12 @@ export type Track = {
   source: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type UploadResult = {
+  __typename?: 'UploadResult';
+  id: Scalars['ID']['output'];
+  url: Scalars['String']['output'];
 };
 
 export type User = {
@@ -146,12 +152,13 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   File: ResolverTypeWrapper<Scalars['File']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   SignInInput: SignInInput;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   SignInPayload: ResolverTypeWrapper<SignInPayload>;
   Track: ResolverTypeWrapper<Track>;
+  UploadResult: ResolverTypeWrapper<UploadResult>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
@@ -161,12 +168,13 @@ export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output'];
   File: Scalars['File']['output'];
   Mutation: {};
-  String: Scalars['String']['output'];
   Query: {};
   ID: Scalars['ID']['output'];
   SignInInput: SignInInput;
+  String: Scalars['String']['output'];
   SignInPayload: SignInPayload;
   Track: Track;
+  UploadResult: UploadResult;
   User: User;
   Boolean: Scalars['Boolean']['output'];
 };
@@ -190,7 +198,7 @@ export type MutationResolvers<
     RequireFields<MutationsignInArgs, 'credentials'>
   >;
   upload?: Resolver<
-    Maybe<ResolversTypes['String']>,
+    Maybe<ResolversTypes['UploadResult']>,
     ParentType,
     ContextType,
     RequireFields<MutationuploadArgs, 'file'>
@@ -228,6 +236,15 @@ export type TrackResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UploadResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UploadResult'] = ResolversParentTypes['UploadResult'],
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User'],
@@ -245,5 +262,6 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   SignInPayload?: SignInPayloadResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
+  UploadResult?: UploadResultResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

@@ -4,7 +4,7 @@ scalar File
 
 type Mutation {
   signIn(credentials: SignInInput!): SignInPayload
-  upload(file: File!): String
+  upload(file: File!): UploadResult
 }
 
 type Query {
@@ -30,6 +30,11 @@ type Track {
   source: String!
   title: String!
   updatedAt: DateTime!
+}
+
+type UploadResult {
+  id: ID!
+  url: String!
 }
 
 type User {

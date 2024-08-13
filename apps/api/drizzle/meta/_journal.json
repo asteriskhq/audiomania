@@ -15,6 +15,13 @@
       "when": 1720805006157,
       "tag": "0001_curious_psylocke",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1723569129468,
+      "tag": "0002_square_skrulls",
+      "breakpoints": true
     }
   ]
 }

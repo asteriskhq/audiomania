@@ -6,6 +6,7 @@ import { randomUUID } from 'node:crypto';
 import { unauthorized } from '../../../utils/utils.js';
 import { fileTypeFromStream } from 'file-type';
 import { createGraphQLError } from 'graphql-yoga';
+import { registerTrack } from '../../../../upload/facade.js';
 
 export const upload: NonNullable<MutationResolvers['upload']> = async (_parent, { file }, { user }: AppContext) => {
   if (!user) {
@@ -21,5 +22,7 @@ export const upload: NonNullable<MutationResolvers['upload']> = async (_parent, 
 
   const uuid = randomUUID();
   await storage.putObject('tracks', uuid, stream.readable, file.size, { 'content-type': fileType.mime });
-  return `http://localhost:9000/tracks/${uuid}`;
+  const id = await registerTrack(uuid, user.id);
+
+  return { id, url: `http://localhost:9000/tracks/${uuid}` };
 };

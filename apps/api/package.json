@@ -7,7 +7,9 @@
   "scripts": {
     "gen": "graphql-codegen",
     "dev": "tsx --watch --env-file .env src/server",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "generate-migrations": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",

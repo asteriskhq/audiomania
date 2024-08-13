@@ -73,7 +73,7 @@ export const typeDefs = {
               directives: [],
             },
           ],
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'UploadResult' } },
           directives: [],
         },
       ],
@@ -196,6 +196,28 @@ export const typeDefs = {
         {
           kind: 'FieldDefinition',
           name: { kind: 'Name', value: 'source' },
+          arguments: [],
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+          directives: [],
+        },
+      ],
+    },
+    {
+      kind: 'ObjectTypeDefinition',
+      name: { kind: 'Name', value: 'UploadResult' },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'id' },
+          arguments: [],
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+          directives: [],
+        },
+        {
+          kind: 'FieldDefinition',
+          name: { kind: 'Name', value: 'url' },
           arguments: [],
           type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
           directives: [],
